@@ -514,6 +514,8 @@ header.scrolled .menu-toggle {
         </section>
     </main>
 
+    <div id="footer-placeholder"></div>
+
     <button id="backToTop">
         <img src="image/BACK-TO-TOP.png" alt="Back to Top" style="width: 150%; height: 150%; object-fit: contain;">
     </button>
@@ -590,6 +592,27 @@ addr_hq: "📍 An Ha Dong, Quang Phu, Da Nang, Vietnam",
         applyLanguage(lang);
     });
 
+
+    // 1. Hàm tải Footer-common
+    async function loadFooter() {
+        try {
+            const response = await fetch('footer-common.html');
+            const data = await response.text();
+            document.getElementById('footer-placeholder').innerHTML = data;
+        
+            // Sau khi tải xong footer, mới áp dụng ngôn ngữ để các ID trong footer được nhận diện
+            const savedLang = localStorage.getItem("selectedLanguage") || "vi";
+            applyLanguage(savedLang);
+        } catch (error) {
+            console.error("Lỗi tải footer:", error);
+
+	    // Nếu lỗi (do mở file từ ổ đĩa), vẫn chạy ngôn ngữ cho phần còn lại
+	    const savedLang = localStorage.getItem("selectedLanguage") || "vi";
+            applyLanguage(savedLang);
+        }
+    }
+
+
     function applyLanguage(lang) {
 
 	document.body.className = (lang === 'ja') ? 'lang-ja' : '';
@@ -624,6 +647,24 @@ addr_hq: "📍 An Ha Dong, Quang Phu, Da Nang, Vietnam",
         document.querySelector(".section-title").innerText = t.section_main_title;
         
         // Footer
+	const setText = (id, text) => { const el = document.getElementById(id); if (el) el.innerText = text; };
+        setText("f-title-contact", t.footer_contact);
+        setText("f-title-hq", t.footer_headquarters);
+        setText("f-title-branch", t.footer_branch);
+        setText("f-addr-hq", t.addr_hq);
+        setText("f-addr-b1", t.addr_b1);
+        setText("f-addr-b2", t.addr_b2);
+        setText("f-addr-b3", t.addr_b3);
+        const fCopy = document.querySelector(".footer-bottom small");
+        if (fCopy) fCopy.innerText = t.footer_copyright;
+    } //kết thúc hàm applyLanguage
+
+
+    // Sự kiện khởi tạo
+    window.addEventListener("DOMContentLoaded", () => {
+    	loadFooter(); // Gọi hàm tải footer
+    });
+
 
     // --- logic scroll ---
     const header = document.querySelector("header");
@@ -675,13 +716,13 @@ searchInput.addEventListener('keypress', function (e) {
 });
 
 // Khi vừa mở trang index.html lên
-window.addEventListener("DOMContentLoaded", () => {
+//window.addEventListener("DOMContentLoaded", () => {
     // Lấy ngôn ngữ đã lưu, nếu chưa có thì mặc định là 'vi'
-    const savedLang = localStorage.getItem("selectedLanguage") || "vi";
+//    const savedLang = localStorage.getItem("selectedLanguage") || "vi";
     
     // Gọi hàm áp dụng ngôn ngữ đó
-    applyLanguage(savedLang);
-});
+//    applyLanguage(savedLang);
+//});
 
 // Xử lý nút hamberger cho điện thoại
 const mobileMenu = document.getElementById('mobile-menu');
