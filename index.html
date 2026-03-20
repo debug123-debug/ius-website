@@ -732,31 +732,35 @@ header.scrolled .menu-toggle {
     }
 
     // Hàm tải Back-to-top
-async function loadBackToTop() {
+    async function loadBackToTop() {
     try {
         const response = await fetch('back-to-top.html');
         const data = await response.text();
-        document.getElementById('backtotop-placeholder').innerHTML = data;
+        const placeholder = document.getElementById('backtotop-placeholder');
+        
+        // 1. Chèn nội dung (HTML + CSS + Script) vào trang
+        placeholder.innerHTML = data;
 
-        // --- logic scroll ---
-        const backToTopBtn = document.getElementById("backToTop");
-
-        window.addEventListener("scroll", function() {
-            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-                backToTopBtn.style.display = "block";
-            } else {
-                backToTopBtn.style.display = "none";
-            }
+        // 2. Tìm tất cả thẻ <script> vừa được chèn vào
+        const scripts = placeholder.querySelectorAll("script");
+        
+        scripts.forEach(oldScript => {
+            // Tạo một thẻ script mới hoàn toàn
+            const newScript = document.createElement("script");
+            
+            // Copy toàn bộ nội dung code từ thẻ cũ sang thẻ mới
+            newScript.textContent = oldScript.textContent;
+            
+            // Chèn thẻ mới vào body để trình duyệt bắt đầu thực thi code
+            document.body.appendChild(newScript);
+            
+            // Xóa thẻ cũ đi cho sạch code
+            oldScript.remove();
         });
-
-        backToTopBtn.onclick = function() {
-            window.scrollTo({top: 0, behavior: 'smooth'});
-        };
-
     } catch (error) {
         console.error("Lỗi tải Back To Top:", error);
     }
-}
+    }
 
 
     function applyLanguage(lang) {

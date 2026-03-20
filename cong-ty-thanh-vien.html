@@ -477,6 +477,8 @@ header.scrolled .menu-toggle {
 
     <div id="footer-placeholder"></div>
 
+    <div id="backtotop-placeholder"></div>
+
 <script>
     // Cấu hình đa ngôn ngữ
     const translations = {
@@ -570,6 +572,38 @@ addr_hq: "📍 An Ha Dong, Quang Phu, Da Nang, Vietnam",
     }
 
 
+    // Hàm tải Back-to-top
+    async function loadBackToTop() {
+    try {
+        const response = await fetch('back-to-top.html');
+        const data = await response.text();
+        const placeholder = document.getElementById('backtotop-placeholder');
+        
+        // 1. Chèn nội dung (HTML + CSS + Script) vào trang
+        placeholder.innerHTML = data;
+
+        // 2. Tìm tất cả thẻ <script> vừa được chèn vào
+        const scripts = placeholder.querySelectorAll("script");
+        
+        scripts.forEach(oldScript => {
+            // Tạo một thẻ script mới hoàn toàn
+            const newScript = document.createElement("script");
+            
+            // Copy toàn bộ nội dung code từ thẻ cũ sang thẻ mới
+            newScript.textContent = oldScript.textContent;
+            
+            // Chèn thẻ mới vào body để trình duyệt bắt đầu thực thi code
+            document.body.appendChild(newScript);
+            
+            // Xóa thẻ cũ đi cho sạch code
+            oldScript.remove();
+        });
+    } catch (error) {
+        console.error("Lỗi tải Back To Top:", error);
+    }
+    }
+
+
     function applyLanguage(lang) {
 
 	document.body.className = (lang === 'ja') ? 'lang-ja' : '';
@@ -620,23 +654,8 @@ addr_hq: "📍 An Ha Dong, Quang Phu, Da Nang, Vietnam",
     // Sự kiện khởi tạo
     window.addEventListener("DOMContentLoaded", () => {
     	loadFooter(); // Gọi hàm tải footer
+	loadBackToTop(); // Gọi hàm tải Back-to-top
     });
-
-    // --- logic scroll ---
-    const header = document.querySelector("header");
-    const backToTopBtn = document.getElementById("backToTop");
-
-    window.onscroll = function() {
-	if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-            backToTopBtn.style.display = "block";
-    	} else {
-            backToTopBtn.style.display = "none";
-    	}
-    };
-
-    backToTopBtn.onclick = function() {
-        window.scrollTo({top: 0, behavior: 'smooth'});
-    };
 
     // --- logic search ---
 const searchBtn = document.getElementById('searchBtn');
