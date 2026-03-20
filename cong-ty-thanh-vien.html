@@ -374,50 +374,6 @@ header.scrolled .lang-select {
     filter: drop-shadow(0 0 15px rgba(26, 75, 160, 0.8)) brightness(1.2);
 }
 
-        footer {
-            background: #202124;
-            color: #bdc1c6;
-            padding: 60px 0 30px 0;
-            margin-top: 50px;
-        }
-
-        .footer-content {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 30px;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-        }
-
-        .footer-grid h4 {
-            color: #ffffff;
-            margin-bottom: 20px;
-            font-size: 1.2rem;
-        }
-
-        .footer-grid p {
-            line-height: 1.8;
-            margin: 10px 0;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .footer-grid p:hover {
-            color: #ffffff;
-            transform: translateX(8px);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            margin-top: 50px;
-            border-top: 1px solid #444;
-            padding-top: 20px;
-        }
-
 /* Container chứa cả input và kính lúp */
 .search-container {
     display: flex;
@@ -558,32 +514,6 @@ header.scrolled .menu-toggle {
         </section>
     </main>
 
-    <footer>
-        <div class="footer-content">
-<div class="footer-grid">
-    <div>
-        <h4 id="f-title-contact">Liên hệ</h4>
-        <p><i class="fas fa-envelope"></i> Email: ngocsy@thietkeius.asia</p>
-        <p><i class="fas fa-phone"></i> Hotline: 070 2929 345</p>
-    </div>
-    <div>
-        <h4 id="f-title-hq">Trụ sở chính</h4>
-        <p id="f-addr-hq">📍 An Hà Đông - Quảng Phú - Đà Nẵng - Việt Nam</p>
-    </div>
-    <div>
-        <h4 id="f-title-branch">Văn phòng làm việc</h4>
-        <p id="f-addr-b1">🏠 Tầng 2, 189 Hùng Vương - Tam Kỳ - Đà Nẵng</p>
-        <p id="f-addr-b2">🏠 Phước Thành - Quế Sơn Trung - Đà Nẵng</p>
-        <p id="f-addr-b3">🏠 Tầng 6, 153 Đống Đa - Hải Châu - Đà Nẵng</p>
-    </div>
-</div>
-        
-            <div class="footer-bottom">
-                <small>© 2026 Bản quyền thuộc về IUS</small>
-            </div>
-        </div>
-    </footer>
-
     <button id="backToTop">
         <img src="image/BACK-TO-TOP.png" alt="Back to Top" style="width: 150%; height: 150%; object-fit: contain;">
     </button>
@@ -694,21 +624,6 @@ addr_hq: "📍 An Ha Dong, Quang Phu, Da Nang, Vietnam",
         document.querySelector(".section-title").innerText = t.section_main_title;
         
         // Footer
-        const footerHeaders = document.querySelectorAll(".footer-grid h4");
-        footerHeaders[0].innerText = t.footer_contact;
-        footerHeaders[1].innerText = t.footer_headquarters;
-        footerHeaders[2].innerText = t.footer_branch;
-        document.querySelector(".footer-bottom small").innerText = t.footer_copyright;
-
-const setText = (id, text) => {
-        const el = document.getElementById(id);
-        if (el && text) el.innerText = text;
-    };
-    setText("f-addr-hq", t.addr_hq);
-    setText("f-addr-b1", t.addr_b1);
-    setText("f-addr-b2", t.addr_b2);
-    setText("f-addr-b3", t.addr_b3);
-}
 
     // --- logic scroll ---
     const header = document.querySelector("header");
