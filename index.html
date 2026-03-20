@@ -732,15 +732,31 @@ header.scrolled .menu-toggle {
     }
 
     // Hàm tải Back-to-top
-    async function loadBackToTop() {
-        try {
-            const response = await fetch('back-to-top.html');
-            const data = await response.text();
-            document.getElementById('backtotop-placeholder').innerHTML = data;
-        } catch (error) {
-            console.error("Lỗi tải Back To Top:", error);
-        }
+async function loadBackToTop() {
+    try {
+        const response = await fetch('back-to-top.html');
+        const data = await response.text();
+        document.getElementById('backtotop-placeholder').innerHTML = data;
+
+        // --- logic scroll ---
+        const backToTopBtn = document.getElementById("backToTop");
+
+        window.addEventListener("scroll", function() {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                backToTopBtn.style.display = "block";
+            } else {
+                backToTopBtn.style.display = "none";
+            }
+        });
+
+        backToTopBtn.onclick = function() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        };
+
+    } catch (error) {
+        console.error("Lỗi tải Back To Top:", error);
     }
+}
 
 
     function applyLanguage(lang) {
@@ -833,7 +849,6 @@ header.scrolled .menu-toggle {
 	//const heroCap = document.querySelector(".caption-bottom");
 	//if(heroCap) heroCap.innerText = t.hero_caption;*/
 	//}
-
 
     // --- Logic Search ---
     const searchBtn = document.getElementById('searchBtn');

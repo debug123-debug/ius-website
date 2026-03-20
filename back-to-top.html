@@ -43,22 +43,3 @@
 <button id="backToTop">
     <img src="image/BACK-TO-TOP.png" alt="Back to Top" style="width: 150%; height: 150%; object-fit: contain;">
 </button>
-
-
-<script>
-    // --- logic scroll ---
-    const header = document.querySelector("header");
-    const backToTopBtn = document.getElementById("backToTop");
-
-    window.onscroll = function() {
-	if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-            backToTopBtn.style.display = "block";
-    	} else {
-            backToTopBtn.style.display = "none";
-    	}
-    };
-
-    backToTopBtn.onclick = function() {
-        window.scrollTo({top: 0, behavior: 'smooth'});
-    };
-</script>
