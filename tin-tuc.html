@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            --primary-color: #1a73e8;
+            --primary-color: #1a4ba0;
             --text-color: #3c4043;
         }
 
@@ -172,7 +172,7 @@ header.scrolled .lang-select {
 
         /* TIÊU ĐỀ CAM SÁNG LÊN KHI HOVER */
         .section-title {
-            color: #ff8c00;
+            color: #1a4ba0;
             font-size: 2.4rem;
             font-weight: 600;
             font-style: italic;
@@ -188,8 +188,8 @@ header.scrolled .lang-select {
         }
 
         .section-title:hover {
-            color: #ffad42; /* Cam sáng hơn chút */
-            text-shadow: 0 0 15px rgba(255, 140, 0, 0.5); /* Phát sáng cam */
+            color: #1a4ba0; /* Cam sáng hơn chút */
+            text-shadow: 0 0 15px rgba(26, 75, 160, 0.5); /* Phát sáng cam */
         }
 
         .section-title::after {
@@ -197,7 +197,7 @@ header.scrolled .lang-select {
             display: block;
             width: 60%;
             height: 3px;
-            background: #ff8c00;
+            background: #1a4ba0;
             opacity: 0.5;
             margin: 10px auto 0 auto;
             border-radius: 10px;
@@ -208,12 +208,12 @@ header.scrolled .lang-select {
         .section-title:hover::after {
             opacity: 1;
             width: 70%;
-            background: #ff8c00;
+            background: #1a4ba0;
         }
 
 	/* Hiển thị chữ xanh và hiệu ứng trong nội dung phần thân trang web */
         .sub-title-green {
-            color: #006400;
+            color: #1a4ba0;
             font-size: 2.2rem;
             font-weight: 500;
             text-align: center;
@@ -225,7 +225,7 @@ header.scrolled .lang-select {
         }
 
         .sub-title-green:hover {
-            color: #004d00; 
+            color: #1a4ba0; 
             letter-spacing: 1px;
         }
 
@@ -333,7 +333,7 @@ header.scrolled .lang-select {
 #backToTop {
     position: fixed;
     bottom: 30px;
-    right: 30px;
+    right: 60px;
     
     /* Xóa mọi màu nền và khung */
     background: none; 
@@ -359,12 +359,13 @@ header.scrolled .lang-select {
     /* Dòng mã quan trọng nhất: Triệt tiêu nền trắng */
     mix-blend-mode: multiply; 
     filter: contrast(1.2); /* Tăng độ tương phản để ảnh sắc nét hơn */
+    filter: drop-shadow(0 0 15px rgba(26, 75, 160, 0.8)) brightness(1.2);
 }
 
 /* Hiệu ứng khi rê chuột: Sáng lên và Bay lên */
 #backToTop:hover {
     transform: translateY(-10px) scale(1.1); /* Bay lên và phóng to nhẹ */
-    filter: drop-shadow(0 0 15px rgba(255, 140, 0, 0.8)) brightness(1.2);
+    filter: drop-shadow(0 0 15px rgba(26, 75, 160, 0.8)) brightness(1.2);
 }
 
         footer {
@@ -446,6 +447,59 @@ header.scrolled .search-container {
 .search-box {
     padding: 5px;
 }
+
+/* Nút hamberger cho điện thoại */
+/* Ẩn nút 3 gạch trên máy tính */
+.menu-toggle {
+    display: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+header.scrolled .menu-toggle {
+    color: #333;
+}
+
+/* KHI XEM TRÊN ĐIỆN THOẠI (Dưới 768px) */
+@media screen and (max-width: 768px) {
+    .menu-toggle {
+        display: block; /* Hiện nút 3 gạch */
+    }
+
+    .nav-links {
+        position: absolute;
+        top: 100%; /* Đẩy xuống dưới Header */
+        left: 0;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.98);
+        flex-direction: column; /* Xếp menu dọc xuống */
+        gap: 0;
+        display: none; /* Mặc định ẩn menu đi */
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    }
+
+    /* Khi bấm vào nút, lớp 'active' sẽ được thêm vào bằng JS để hiện menu */
+    .nav-links.active {
+        display: flex;
+    }
+
+    .nav-links li {
+        width: 100%;
+        text-align: center;
+        border-bottom: 1px solid #eee;
+    }
+
+    .nav-links a {
+        display: block;
+        padding: 15px;
+        color: #333 !important; /* Chữ đen cho dễ nhìn trên nền trắng */
+    }
+    
+    .header-tools {
+        gap: 5px; /* Thu hẹp khoảng cách tìm kiếm và ngôn ngữ */
+    }
+}
     </style>
 </head>
 <body>
@@ -453,10 +507,14 @@ header.scrolled .search-container {
     <header id="main-header">
         <div class="logo">
             <a href="index.html">
-                <img src="image/lo-go-cong-ty.PNG" alt="Logo" style="height: 50px; width: auto; vertical-align: middle;">
+                <img src="image/lo-go-cong-ty.PNG" alt="Logo" style="height: 75px; width: auto; vertical-align: middle;">
             </a>
         </div>
         
+	<div class="menu-toggle" id="mobile-menu">
+            <i class="fas fa-bars"></i>
+    	</div>
+
         <nav>
             <ul class="nav-links">
 		<li><a href="index.html" id="nav-home">Trang chủ</a></li>
@@ -464,6 +522,7 @@ header.scrolled .search-container {
                 <li><a href="dich-vu.html" id="nav-services">Dịch vụ</a></li>
                 <li><a href="du-an.html" id="nav-projects">Dự án</a></li>
                 <li><a href="tin-tuc.html" id="nav-news">Tin tức và hoạt động</a></li>
+		<li><a href="cong-ty-thanh-vien.html" id="nav-sub-company">Công ty thành viên</a></li>
                 <li><a href="tuyen-dung.html" id="nav-jobs">Tuyển dụng</a></li>
                 <li><a href="lien-he.html" id="nav-contact">Liên hệ</a></li>
             </ul>
@@ -485,7 +544,6 @@ header.scrolled .search-container {
 
     <section class="hero">
         <h1 class="title-thin">Tin tức và hoạt động của IUS!</h1>
-        <p class="caption-bottom">Nhà gỗ Nhật Bản (Ảnh: Internet)</p>
     </section>
 
     <main class="container">
@@ -496,22 +554,23 @@ header.scrolled .search-container {
 
     <footer>
         <div class="footer-content">
-            <div class="footer-grid">
-                <div>
-                    <h4>Liên hệ</h4>
-                    <p><i class="fas fa-envelope"></i> Email: ngocsy@thietkeius.asia</p>
-                    <p><i class="fas fa-phone"></i> Hotline: 0123.456.789</p>
-                </div>
-                <div>
-                    <h4>Trụ sở chính</h4>
-                    <p>322 Huỳnh Thúc Kháng - Tam Kỳ - Đà Nẵng</p>
-                </div>
-                <div>
-                    <h4>Chi nhánh</h4>
-                    <p>Chi nhánh Bà Rén: Bà Rén - Đà Nẵng</p>
-                    <p>Chi nhánh Đà Nẵng: Block 6A - 153 Đống Đa - phường Hải Châu - Đà Nẵng</p>
-                </div>
-            </div>
+<div class="footer-grid">
+    <div>
+        <h4 id="f-title-contact">Liên hệ</h4>
+        <p><i class="fas fa-envelope"></i> Email: ngocsy@thietkeius.asia</p>
+        <p><i class="fas fa-phone"></i> Hotline: 070 2929 345</p>
+    </div>
+    <div>
+        <h4 id="f-title-hq">Trụ sở chính</h4>
+        <p id="f-addr-hq">📍 An Hà Đông - Quảng Phú - Đà Nẵng - Việt Nam</p>
+    </div>
+    <div>
+        <h4 id="f-title-branch">Văn phòng làm việc</h4>
+        <p id="f-addr-b1">🏠 Tầng 2, 189 Hùng Vương - Tam Kỳ - Đà Nẵng</p>
+        <p id="f-addr-b2">🏠 Phước Thành - Quế Sơn Trung - Đà Nẵng</p>
+        <p id="f-addr-b3">🏠 Tầng 6, 153 Đống Đa - Hải Châu - Đà Nẵng</p>
+    </div>
+</div>
         
             <div class="footer-bottom">
                 <small>© 2026 Bản quyền thuộc về IUS</small>
@@ -520,7 +579,7 @@ header.scrolled .search-container {
     </footer>
 
     <button id="backToTop">
-        <img src="image/BACK-TO-TOP.png" alt="Back to Top" style="width: 100%; height: 100%; object-fit: contain;">
+        <img src="image/BACK-TO-TOP.png" alt="Back to Top" style="width: 150%; height: 150%; object-fit: contain;">
     </button>
 
 <script>
@@ -532,6 +591,7 @@ header.scrolled .search-container {
             nav_services: "Dịch vụ",
             nav_projects: "Dự án",
             nav_news: "Tin tức và hoạt động",
+	    nav_sub_company: "Công ty thành viên",
             nav_jobs: "Tuyển dụng",
             nav_contact: "Liên hệ",
             hero_title: "Tin tức và hoạt động của IUS!",
@@ -548,7 +608,11 @@ header.scrolled .search-container {
 	    sub_notes: "Nhà gỗ Nhật Bản (Ảnh: Internet)",
             footer_contact: "Liên hệ",
             footer_headquarters: "Trụ sở chính",
-            footer_branch: "Chi nhánh",
+            footer_branch: "Văn Phòng Làm Việc",
+addr_hq: "📍 An Hà Đông - Quảng Phú - Đà Nẵng - Việt Nam",
+        addr_b1: "🏠 Tầng 2, 189 Hùng Vương - Tam Kỳ - Đà Nẵng",
+        addr_b2: "🏠 Phước Thành - Quế Sơn Trung - Đà Nẵng",
+        addr_b3: "🏠 Tầng 6, 153 Đống Đa - Hải Châu - Đà Nẵng",
             footer_copyright: "© 2026 Bản quyền thuộc về IUS"
         },
         ja: {
@@ -557,6 +621,7 @@ header.scrolled .search-container {
             nav_services: "サービス",
             nav_projects: "実績紹介",
             nav_news: "ニュース",
+	    nav_sub_company: "子会社",
             nav_jobs: "採用情報",
             nav_contact: "お問い合わせ",
             hero_title: "IUSサービス！",
@@ -573,7 +638,11 @@ header.scrolled .search-container {
 	    sub_notes: "日本の木造住宅（写真：インターネット）",
             footer_contact: "連絡先",
             footer_headquarters: "本社",
-            footer_branch: "支店",
+            footer_branch: "オフィス",
+addr_hq: "📍 An Ha Dong, Quang Phu, Da Nang, Vietnam",
+        addr_b1: "🏠 189 Hung Vuong, Tam Ky, Da Nang (2F)",
+        addr_b2: "🏠 Phuoc Thành, Que Son Trung, Da Nang",
+        addr_b3: "🏠 153 Dong Da, Hai Chau, Da Nang (6F)",
             footer_copyright: "© 2026 著作権は IUS に帰属します"
         }
     };
@@ -599,12 +668,12 @@ header.scrolled .search-container {
     	if(document.getElementById("nav-services")) document.getElementById("nav-services").innerText = t.nav_services;
     	if(document.getElementById("nav-projects")) document.getElementById("nav-projects").innerText = t.nav_projects;
     	if(document.getElementById("nav-news")) document.getElementById("nav-news").innerText = t.nav_news;
+	if(document.getElementById("nav-sub-company")) document.getElementById("nav-sub-company").innerText = t.nav_sub_company;
     	if(document.getElementById("nav-jobs")) document.getElementById("nav-jobs").innerText = t.nav_jobs;
     	if(document.getElementById("nav-contact")) document.getElementById("nav-contact").innerText = t.nav_contact;
 
         // Hero
         document.querySelector(".title-thin").innerText = t.hero_title;
-        document.querySelector(".caption-bottom").innerText = t.hero_caption;
 
 	//Search
 	const searchInput = document.getElementById("searchInput");
@@ -614,15 +683,6 @@ header.scrolled .search-container {
 
         // Main Content
         document.querySelector(".section-title").innerText = t.section_main_title;
-        
-        /*const subs = document.querySelectorAll(".sub-title-green");
-        subs[0].innerText = t.sub_classic;
-        subs[1].innerText = t.sub_modern;
-        subs[2].innerText = t.sub_morning;
-        subs[3].innerText = t.sub_noon;
-        subs[4].innerText = t.sub_peace;
-        subs[5].innerText = t.sub_light;
-        subs[6].innerText = t.sub_interior;*/
 
         // Footer
         const footerHeaders = document.querySelectorAll(".footer-grid h4");
@@ -631,16 +691,14 @@ header.scrolled .search-container {
         footerHeaders[2].innerText = t.footer_branch;
         document.querySelector(".footer-bottom small").innerText = t.footer_copyright;
 
-	// Notes
-	// ĐỔI TẤT CẢ CÁC DÒNG CHÚ THÍCH ẢNH
-	const captions = document.querySelectorAll(".lang-caption");
-	captions.forEach(cap => {
-	    cap.innerText = t.hero_caption; // Dùng chung nội dung "Nhà gỗ Nhật Bản..."
-	});
-
-	// Cập nhật luôn cả dòng caption dưới ảnh Hero
-	const heroCap = document.querySelector(".caption-bottom");
-	if(heroCap) heroCap.innerText = t.hero_caption;
+const setText = (id, text) => {
+        const el = document.getElementById(id);
+        if (el && text) el.innerText = text;
+    };
+    setText("f-addr-hq", t.addr_hq);
+    setText("f-addr-b1", t.addr_b1);
+    setText("f-addr-b2", t.addr_b2);
+    setText("f-addr-b3", t.addr_b3);
 }
 
     // --- logic scroll ---
@@ -699,6 +757,31 @@ window.addEventListener("DOMContentLoaded", () => {
     
     // Gọi hàm áp dụng ngôn ngữ đó
     applyLanguage(savedLang);
+});
+
+// Xử lý nút hamberger cho điện thoại
+const mobileMenu = document.getElementById('mobile-menu');
+const navLinks = document.querySelector('.nav-links');
+
+// Khi bấm vào nút 3 gạch
+mobileMenu.addEventListener('click', () => {
+    // Thêm hoặc xóa class 'active' để hiện/ẩn menu
+    navLinks.classList.toggle('active');
+    
+    // Đổi icon từ 3 gạch sang chữ X khi mở
+    const icon = mobileMenu.querySelector('i');
+    if (navLinks.classList.contains('active')) {
+        icon.classList.replace('fa-bars', 'fa-times');
+    } else {
+        icon.classList.replace('fa-times', 'fa-bars');
+    }
+});
+
+// Tự đóng menu khi bấm vào một link bất kỳ
+document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+    });
 });
 </script>
 </body>

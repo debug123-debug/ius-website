@@ -7,14 +7,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
-            --primary-color: #1a73e8;
+            --primary-color: #1a4ba0;
             --text-color: #3c4043;
         }
 
         body {
             font-family: 'Segoe UI', Roboto, Arial, sans-serif;
             margin: 0;
-            padding: 0;
+            padding-top: 95px; /* Khoảng cách này bằng đúng chiều cao Header */
             color: var(--text-color);
             background-color: #f8f9fa;
         }
@@ -25,42 +25,51 @@
             top: 0;
             left: 0;
             width: 100%;
+	    height: 95px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 5%;
+            padding: 0 5%;
             box-sizing: border-box;
             z-index: 1000;
-            background: transparent;
-            transition: all 0.4s ease;
+            background: #ffffff;
+	    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
         header.scrolled {
-            background: rgba(255, 255, 255, 0.98);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            background: #ffffff;
             padding: 10px 5%;
         }
 
         .nav-links {
             list-style: none;
             display: flex;
-            gap: 25px;
+            gap: 35px;
             margin: 0;
             padding: 0;
         }
 
         .nav-links a {
             text-decoration: none;
-            color: #ffffff;
-            font-weight: 500;
-            font-size: 15px;
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 17px;
             text-transform: uppercase;
-            transition: color 0.3s ease;
+	    transition: all 0.3s ease; /* Thêm để các hiệu ứng mượt mà */
+    	    display: inline-block;
         }
 
         .nav-links a:hover {
             color: var(--primary-color) !important;
+	    transform: scale(1.1); /* Phóng to 10% */
+    	    text-shadow: 0 0 10px rgba(26, 75, 160, 0.3); /* Hiệu ứng sáng lên */
         }
+
+	/* Xử lý riêng cho Tiếng Nhật */
+	    body.lang-ja .nav-links a {
+    	    font-size: 18px; /* Tiếng Nhật thường cần to hơn để dễ đọc */
+    	    letter-spacing: 0.15em; /* Giãn cách các ký tự tiếng Nhật */
+	}
 
         header.scrolled .nav-links a,
         header.scrolled .search-box,
@@ -80,24 +89,23 @@
             gap: 15px;
         }
 
-	/* Biến Combo box thành phong cách kính mờ */
+	/* Combo box */
 	.lang-select {
-	    background: rgba(255, 255, 255, 0.15); /* Nền mờ */
-	    backdrop-filter: blur(8px);           /* Hiệu ứng kính */
-	    -webkit-backdrop-filter: blur(8px);
-	    color: white;                          /* Chữ trắng trên ảnh bìa */
-	    border: 1px solid rgba(255, 255, 255, 0.3); /* Viền trắng mờ */
-	    padding: 4px 12px;
-	    border-radius: 20px;                   /* Bo tròn */
-	    cursor: pointer;
-	    outline: none;
-	    font-size: 13px;
-	    font-weight: 600;
-	    appearance: none;                      /* Xóa mũi tên đen mặc định */
-	    -webkit-appearance: none;
-	    transition: all 0.3s ease;
-	    text-align: center;
-	    min-width: 50px;
+    background: rgba(26, 75, 160, 0.1); /* Đổi sang xanh nhạt để nổi trên nền trắng */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    color: #1a4ba0; 
+    border: 1px solid rgba(26, 75, 160, 0.3);
+    padding: 4px 12px;
+    border-radius: 20px;
+    cursor: pointer;
+    outline: none;
+    font-size: 13px;
+    font-weight: 600;
+    appearance: none;
+    -webkit-appearance: none;
+    text-align: center;
+    min-width: 50px;
 }
 
 /* Khi cuộn chuột xuống - Header chuyển sang nền trắng */
@@ -119,36 +127,62 @@ header.scrolled .lang-select {
     color: #333;
 }
 
-        /* BANNER (HERO) */
-        .hero {
-            position: relative;
-            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
-                        url('image/Anh-bia-trang-chu.PNG');
-            background-size: cover;
-            background-position: center;
-            height: 105vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            text-align: center;
-        }
+/* BANNER (HERO) */
+.hero {
+    position: relative;
+    width: 100%;
+    min-height: 400px; /* Dùng min-height cố định cho mobile và linh hoạt cho desktop */
+    height: calc(100vw * (1024 / 1536));
+    
+    background: linear-gradient(rgba(255,255,255,0.1), rgba(255,255,255,0.1)), 
+            url('image/Anh-bia-trang-chu-new.png?v=1.1'); /* Thêm ?v=1.1 vào sau để tránh lỗi lưu cache ảnh cũ của web brower */
+    
+    background-size: contain; /* Hiện toàn bộ ảnh */
+    background-repeat: no-repeat;
+    background-position: top center; /* Bắt đầu từ đỉnh ảnh */
+    background-color: #ffffff; /* Nền trắng */
+    
+    display: flex;
+    justify-content: flex-end; /* Đẩy khối nội dung sang phải */
+    align-items: flex-start; 
+    padding-top: 80px; /* Độ cao từ Header xuống */
+    padding-right: 20%; /* đẩy chữ sang trái nhiều hơn */
+    box-sizing: border-box;
+}
 
-        .title-thin {
-            font-weight: 300;
-            font-size: 2.5rem;
-            font-style: italic;
-            letter-spacing: 1px;
-            transition: all 0.5s ease;
-            cursor: default;
-        }
+.title-thin {
+    font-weight: 600;
+    font-size: clamp(1.5rem, 4vw, 3.5rem);
+    font-style: italic;
+    color: var(--primary-color);
+    text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.9);
+    white-space: pre-line; 
+    line-height: 1.3;
+    
+    text-align: left; /* Chữ căn lề trái */
+    margin: 0;
+    width: auto; /* Để chiều rộng tự động theo nội dung */
+    max-width: 100%; /* Giới hạn để không bị tràn màn hình */
+}
 
-        /* Hiệu ứng sáng chữ cho Slogan trên ảnh bìa */
-        .title-thin:hover {
-            text-shadow: 0 0 15px rgba(255,255,255,0.7);
-            transform: scale(1.01);
-        }
+/* 3. HIỆU ỨNG: Chạy ra và Nhấp nháy liên tục */
+.char-effect {
+    display: inline-block;
+    white-space: pre;
+    opacity: 0;
+    /* Chạy fadeIn để hiện ra, sau đó chạy blink liên tục */
+    animation: fadeIn 0.5s forwards, blink 2s infinite;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; filter: brightness(1.2); }
+    50% { opacity: 0.2; filter: brightness(0.8); }
+}
 
         .caption-bottom {
             position: absolute;
@@ -170,9 +204,9 @@ header.scrolled .lang-select {
             box-shadow: 0 4px 20px rgba(0,0,0,0.05);
         }
 
-        /* TIÊU ĐỀ CAM SÁNG LÊN KHI HOVER */
+        /* TIÊU ĐỀ XANH IUS SÁNG LÊN KHI HOVER */
         .section-title {
-            color: #ff8c00;
+            color: #1a4ba0; /* RGB (26, 75, 160) */
             font-size: 2.4rem;
             font-weight: 600;
             font-style: italic;
@@ -188,8 +222,8 @@ header.scrolled .lang-select {
         }
 
         .section-title:hover {
-            color: #ffad42; /* Cam sáng hơn chút */
-            text-shadow: 0 0 15px rgba(255, 140, 0, 0.5); /* Phát sáng cam */
+            color: #1a4ba0; /* XANH IUS */
+            text-shadow: 0 0 15px rgba(26, 75, 160, 0.5); /* Phát sáng xanh */
         }
 
         .section-title::after {
@@ -197,7 +231,7 @@ header.scrolled .lang-select {
             display: block;
             width: 60%;
             height: 3px;
-            background: #ff8c00;
+            background: #1a4ba0;
             opacity: 0.5;
             margin: 10px auto 0 auto;
             border-radius: 10px;
@@ -208,12 +242,12 @@ header.scrolled .lang-select {
         .section-title:hover::after {
             opacity: 1;
             width: 70%;
-            background: #ff8c00;
+            background: #1a4ba0;
         }
 
 	/* Hiển thị chữ xanh và hiệu ứng trong nội dung phần thân trang web */
         .sub-title-green {
-            color: #006400;
+            color: #1a4ba0;
             font-size: 2.2rem;
             font-weight: 500;
             text-align: center;
@@ -225,7 +259,7 @@ header.scrolled .lang-select {
         }
 
         .sub-title-green:hover {
-            color: #004d00; 
+            color: #1a4ba0; 
             letter-spacing: 1px;
         }
 
@@ -333,7 +367,7 @@ header.scrolled .lang-select {
 #backToTop {
     position: fixed;
     bottom: 30px;
-    right: 30px;
+    right: 60px;
     
     /* QUAN TRỌNG: Xóa mọi màu nền và khung */
     background: none; 
@@ -341,7 +375,7 @@ header.scrolled .lang-select {
     outline: none;
     padding: 0;
     
-    /* Chỉnh kích thước to lên (ví dụ 80px) */
+    /* Chỉnh kích thước to lên */
     width: 80px; 
     height: auto; /* Để chiều cao tự động theo tỉ lệ ảnh */
     
@@ -359,63 +393,22 @@ header.scrolled .lang-select {
     /* Dòng mã quan trọng nhất: Triệt tiêu nền trắng */
     mix-blend-mode: multiply; 
     filter: contrast(1.2); /* Tăng độ tương phản để ảnh sắc nét hơn */
+    filter: drop-shadow(0 0 15px rgba(26, 75, 160, 0.8)) brightness(1.2);
 }
 
 /* Hiệu ứng khi rê chuột: Sáng lên và Bay lên */
 #backToTop:hover {
     transform: translateY(-10px) scale(1.1); /* Bay lên và phóng to nhẹ */
-    filter: drop-shadow(0 0 15px rgba(255, 140, 0, 0.8)) brightness(1.2);
+    filter: drop-shadow(0 0 15px rgba(26, 75, 160, 0.8)) brightness(1.2);
 }
 
-        footer {
-            background: #202124;
-            color: #bdc1c6;
-            padding: 60px 0 30px 0;
-            margin-top: 50px;
-        }
 
-        .footer-content {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 30px;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-        }
-
-        .footer-grid h4 {
-            color: #ffffff;
-            margin-bottom: 20px;
-            font-size: 1.2rem;
-        }
-
-        .footer-grid p {
-            line-height: 1.8;
-            margin: 10px 0;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .footer-grid p:hover {
-            color: #ffffff;
-            transform: translateX(8px);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            margin-top: 50px;
-            border-top: 1px solid #444;
-            padding-top: 20px;
-        }
 
 /* Container chứa cả input và kính lúp */
 .search-container {
     display: flex;
     align-items: center;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(0, 0, 0, 0.05); /* Xám nhạt để thấy rõ trên nền trắng */
     border-radius: 20px;
     padding: 2px 10px;
     transition: all 0.3s ease;
@@ -444,7 +437,135 @@ header.scrolled .search-container {
 }
 
 .search-box {
-    padding: 5px;
+    color: #1a4ba0; /* Màu kính lúp xanh theo tone logo */
+    cursor: pointer;
+    font-size: 18px;
+}
+
+/* Container chứa 7 ô dịch vụ */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Chia làm 3 cột bằng nhau */
+    gap: 25px; /* Khoảng cách giữa các ô */
+    margin-top: 40px;
+}
+
+/* Từng ô dịch vụ đơn lẻ */
+.service-item {
+    text-decoration: none; /* Bỏ gạch chân link */
+    color: inherit;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.service-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.service-pic img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover; /* Giúp ảnh không bị móp méo */
+    display: block;
+}
+
+.service-text {
+    padding: 20px;
+    text-align: center;
+}
+
+.service-text h4 {
+    margin: 0 0 10px 0;
+    color: #1a4ba0;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+}
+
+.service-text p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.5;
+}
+
+/* Responsive: Trên điện thoại thì xếp 1 cột, máy tính bảng 2 cột */
+@media (max-width: 992px) {
+    .services-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+    .services-grid { grid-template-columns: 1fr; }
+}
+
+/* Ẩn nút 3 gạch trên máy tính */
+.menu-toggle {
+    display: none;
+    color: var(--primary-color);
+    font-size: 24px;
+    cursor: pointer;
+}
+
+header.scrolled .menu-toggle {
+    color: #333;
+}
+
+/* Dành cho máy tính bảng và điện thoại (màn hình nhỏ hơn 1024px) */
+@media screen and (max-width: 1024px) {
+    .menu-toggle {
+        display: block; /* Hiện nút 3 gạch */
+	color: var(--primary-color);
+        font-size: 24px;
+        cursor: pointer;
+        margin-right: 35%;
+    }
+
+    .nav-links {
+        position: absolute;
+        top: 100%; /* Đẩy xuống dưới Header */
+        left: 0;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.98);
+        flex-direction: column; /* Xếp menu dọc xuống */
+        gap: 0;
+        display: none; /* Mặc định ẩn menu đi */
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    }
+
+    /* Khi bấm vào nút, lớp 'active' sẽ được thêm vào bằng JS để hiện menu */
+    .nav-links.active {
+        display: flex;
+    }
+
+    .nav-links li {
+        width: 100%;
+        text-align: center;
+        border-bottom: 1px solid #eee;
+    }
+
+    .nav-links a {
+        display: block;
+        padding: 15px;
+        color: #333 !important; /* Chữ đen cho dễ nhìn trên nền trắng */
+    }
+    
+    .header-tools {
+        gap: 5px; /* Thu hẹp khoảng cách tìm kiếm và ngôn ngữ */
+    }
+}
+
+/* --- ĐIỀU CHỈNH CHO ĐIỆN THOẠI NHỎ (Dưới 480px) --- */
+@media screen and (max-width: 480px) {
+    .hero {
+        padding-top: 15px; /* Sát lên trên cùng */
+    }
+    .title-thin {
+        font-size: 1.2rem; 
+    }
 }
     </style>
 </head>
@@ -453,10 +574,14 @@ header.scrolled .search-container {
     <header id="main-header">
         <div class="logo">
             <a href="index.html">
-                <img src="image/lo-go-cong-ty.PNG" alt="Logo" style="height: 50px; width: auto; vertical-align: middle;">
+                <img src="image/lo-go-cong-ty.PNG" alt="Logo" style="height: 75px; width: auto; vertical-align: middle;">
             </a>
         </div>
         
+	<div class="menu-toggle" id="mobile-menu">
+            <i class="fas fa-bars"></i>
+    	</div>
+
         <nav>
             <ul class="nav-links">
 		<li><a href="index.html" id="nav-home">Trang chủ</a></li>
@@ -464,6 +589,7 @@ header.scrolled .search-container {
                 <li><a href="dich-vu.html" id="nav-services">Dịch vụ</a></li>
                 <li><a href="du-an.html" id="nav-projects">Dự án</a></li>
                 <li><a href="tin-tuc.html" id="nav-news">Tin tức và hoạt động</a></li>
+		<li><a href="cong-ty-thanh-vien.html" id="nav-sub-company">Công ty thành viên</a></li>
                 <li><a href="tuyen-dung.html" id="nav-jobs">Tuyển dụng</a></li>
                 <li><a href="lien-he.html" id="nav-contact">Liên hệ</a></li>
             </ul>
@@ -485,111 +611,74 @@ header.scrolled .search-container {
 
     <section class="hero">
         <h1 class="title-thin">Kiến tạo ngôi nhà bền vững của bạn!</h1>
-        <p class="caption-bottom">Nhà gỗ Nhật Bản (Ảnh: Internet)</p>
     </section>
 
     <main class="container">
-        <section id="about">
-            <h2 class="section-title">Đem đến cho bạn và gia đình sự hoàn hảo tuyệt mỹ với những bản thiết kế mới lạ và đa dạng!</h2>
+<h2 class="section-title">DỊCH VỤ CỦA CHÚNG TÔI</h2>
 
-            <div class="content-block">
-                <span class="sub-title-green">Dù là cổ điển</span>
-                <div class="image-container">
-                    <img src="image/Nha-co-dien.PNG" alt="Nhà cổ điển">
-                    <span class="image-caption lang-caption">Nhà gỗ Nhật Bản (Ảnh: Internet)</span>
-                </div>
-            </div>
+<div class="services-grid">
+    <a href="gioi-thieu.html" class="service-item">
+        <div class="service-pic"><img src="image/Gioi-thieu.PNG" alt="Giới thiệu"></div>
+        <div class="service-text">
+            <h4>Giới thiệu</h4>
+            <p>Tìm hiểu về tầm nhìn và sứ mệnh kiến tạo tổ ấm của IUS.</p>
+        </div>
+    </a>
 
-            <div class="content-block">
-                <span class="sub-title-green">Hay hiện đại</span>
-                <div class="image-container">
-                    <img src="image/Nha-hien-dai.PNG" alt="Nhà hiện đại">
-                    <span class="image-caption lang-caption">Nhà gỗ Nhật Bản (Ảnh: Internet)</span>
-                </div>
-            </div>
+    <a href="dich-vu.html" class="service-item">
+        <div class="service-pic"><img src="image/Dich-vu.PNG" alt="Dịch vụ"></div>
+        <div class="service-text">
+            <h4>Dịch vụ</h4>
+            <p>Thiết kế bản vẽ kiến trúc, lập trình phần mềm xây dựng.</p>
+        </div>
+    </a>
 
-            <div class="content-block">
-                <span class="sub-title-green">Trẻ trung trong nắng sớm!</span>
-                <div class="image-container">
-                    <img src="image/Tre-trung-trong-nam-som.PNG" alt="Nhà buổi sáng">
-                    <span class="image-caption lang-caption">Nhà gỗ Nhật Bản (Ảnh: Internet)</span>
-                </div>
-            </div>
+    <a href="du-an.html" class="service-item">
+        <div class="service-pic"><img src="image/Du-an.PNG" alt="Dự án"></div>
+        <div class="service-text">
+            <h4>Dự án</h4>
+            <p>Các dự án tiêu biểu đã hoàn thành.</p>
+        </div>
+    </a>
 
-            <div class="content-block">
-                <span class="sub-title-green">Xanh mát vườn ban trưa!</span>
-                <div class="image-container">
-                    <img src="image/Xanh-mat-vuon-buoi-trua.PNG" alt="Vườn buổi trưa">
-                    <span class="image-caption lang-caption">Nhà gỗ Nhật Bản (Ảnh: Internet)</span>
-                </div>
-            </div>
+    <a href="tin-tuc.html" class="service-item">
+        <div class="service-pic"><img src="image/Tin-tuc-va-hoat-dong.PNG" alt="Tin tức"></div>
+        <div class="service-text">
+            <h4>Tin tức</h4>
+            <p>Cập nhật những hoạt động và sự kiện mới nhất của công ty.</p>
+        </div>
+    </a>
 
-            <div class="content-block">
-                <span class="sub-title-green">Chiều đô thị bình yên!</span>
-                <div class="image-container">
-                    <img src="image/Binh-yen-giu-do-thi.PNG" alt="Sân buổi chiều">
-                    <span class="image-caption lang-caption">Nhà gỗ Nhật Bản (Ảnh: Internet)</span>
-                </div>
-            </div>
+    <a href="cong-ty-thanh-vien.html" class="service-item">
+        <div class="service-pic"><img src="image/Cong-ty-thanh-vien.png" alt="Thành viên"></div>
+        <div class="service-text">
+            <h4>Công ty thành viên</h4>
+            <p>Hệ sinh thái các đơn vị đối tác và công ty con của IUS.</p>
+        </div>
+    </a>
 
-            <div class="side-by-side">
-                <div class="side-left">
-                    <div class="image-container">
-                        <img src="image/Gieng-troi.PNG" alt="Giếng trời đầy ánh sáng">
-                    </div>
-                    <span class="image-caption lang-caption">Nhà gỗ Nhật Bản (Ảnh: Internet)</span>
-                </div>
+    <a href="tuyen-dung.html" class="service-item">
+        <div class="service-pic"><img src="image/Tuyen-dung.png" alt="Tuyển dụng"></div>
+        <div class="service-text">
+            <h4>Tuyển dụng</h4>
+            <p>Gia nhập đội ngũ kỹ sư và kiến trúc sư tài năng của chúng tôi.</p>
+        </div>
+    </a>
 
-                <div class="side-right">
-                    <span class="sub-title-green">Kín đáo nhưng tràn ánh sáng!</span>
-                </div>
-            </div>
-
-            <div class="content-block">
-                <span class="sub-title-green">Nội thất sang trọng! Mát mẻ mùa hè, ấm áp về đông!</span>
-                <div class="image-group-triple">
-                    <div class="image-item">
-                        <img src="image/Noi-that-1.PNG" alt="Nội thất 1">
-                    </div>
-                    <div class="image-item">
-                        <img src="image/Noi-that-2.PNG" alt="Nội thất 2">
-                    </div>
-                    <div class="image-item">
-                        <img src="image/Noi-that-3.PNG" alt="Nội thất 3">
-                    </div>
-                </div>
-                <span class="image-caption lang-caption">Nhà gỗ Nhật Bản (Ảnh: Internet)</span>
-            </div>
-        </section>
+    <a href="lien-he.html" class="service-item">
+        <div class="service-pic"><img src="image/Lien-he.PNG" alt="Liên hệ"></div>
+        <div class="service-text">
+            <h4>Liên hệ</h4>
+            <p>Gửi yêu cầu tư vấn cho chúng tôi ngay hôm nay.</p>
+        </div>
+    </a>
+</div>
     </main>
 
-    <footer>
-        <div class="footer-content">
-            <div class="footer-grid">
-                <div>
-                    <h4>Liên hệ</h4>
-                    <p><i class="fas fa-envelope"></i> Email: ngocsy@thietkeius.asia</p>
-                    <p><i class="fas fa-phone"></i> Hotline: 0123.456.789</p>
-                </div>
-                <div>
-                    <h4>Trụ sở chính</h4>
-                    <p>322 Huỳnh Thúc Kháng - Tam Kỳ - Đà Nẵng</p>
-                </div>
-                <div>
-                    <h4>Chi nhánh</h4>
-                    <p>Chi nhánh Bà Rén: Bà Rén - Đà Nẵng</p>
-                    <p>Chi nhánh Đà Nẵng: Block 6A - 153 Đống Đa - phường Hải Châu - Đà Nẵng</p>
-                </div>
-            </div>
-        
-            <div class="footer-bottom">
-                <small>© 2026 Bản quyền thuộc về IUS</small>
-            </div>
-        </div>
-    </footer>
+    <div id="footer-placeholder"></div>
 
     <button id="backToTop">
-        <img src="image/BACK-TO-TOP.png" alt="Back to Top" style="width: 100%; height: 100%; object-fit: contain;">
+        <img src="image/BACK-TO-TOP.png" alt="Back to Top" style="width: 150%; height: 150%; object-fit: contain;">
     </button>
 
 <script>
@@ -601,9 +690,10 @@ header.scrolled .search-container {
             nav_services: "Dịch vụ",
             nav_projects: "Dự án",
             nav_news: "Tin tức và hoạt động",
+	    nav_sub_company: "Công ty thành viên",
             nav_jobs: "Tuyển dụng",
             nav_contact: "Liên hệ",
-            hero_title: "Kiến tạo ngôi nhà bền vững của bạn!",
+            hero_title: "Công ty chúng tôi chuyên:\n・Gia công bản vẽ\n・Lập trình phần mềm",
             hero_caption: "Nhà gỗ Nhật Bản (Ảnh: Internet)",
 	    search_placeholder: "Tìm kiếm...",
             section_main_title: "Đem đến cho bạn và gia đình sự hoàn hảo tuyệt mỹ với những bản thiết kế mới lạ và đa dạng!",
@@ -617,7 +707,11 @@ header.scrolled .search-container {
 	    sub_notes: "Nhà gỗ Nhật Bản (Ảnh: Internet)",
             footer_contact: "Liên hệ",
             footer_headquarters: "Trụ sở chính",
-            footer_branch: "Chi nhánh",
+            footer_branch: "Văn Phòng Làm Việc",
+    	    addr_hq: "📍 An Hà Đông - Quảng Phú - Đà Nẵng - Việt Nam",
+            addr_b1: "🏠 Tầng 2, 189 Hùng Vương - Tam Kỳ - Đà Nẵng",
+            addr_b2: "🏠 Phước Thành - Quế Sơn Trung - Đà Nẵng",
+            addr_b3: "🏠 Tầng 6, 153 Đống Đa - Hải Châu - Đà Nẵng",
             footer_copyright: "© 2026 Bản quyền thuộc về IUS"
         },
         ja: {
@@ -626,9 +720,10 @@ header.scrolled .search-container {
             nav_services: "サービス",
             nav_projects: "実績紹介",
             nav_news: "ニュース",
+	    nav_sub_company: "子会社",
             nav_jobs: "採用情報",
             nav_contact: "お問い合わせ",
-            hero_title: "あなたの持続可能な家を築きましょう！",
+            hero_title: "私たちの会社は、\n・建築図面作成\n・ソフトウェア開発",
             hero_caption: "日本の木造住宅（写真：インターネット）",
 	    search_placeholder: "検索...",
             section_main_title: "斬新で多様なデザインで、あなたとご家族に最高の完璧さをお届けします！",
@@ -642,10 +737,15 @@ header.scrolled .search-container {
 	    sub_notes: "日本の木造住宅（写真：インターネット）",
             footer_contact: "連絡先",
             footer_headquarters: "本社",
-            footer_branch: "支店",
+            footer_branch: "オフィス",
+	    addr_hq: "📍 An Ha Dong, Quang Phu, Da Nang, Vietnam",
+            addr_b1: "🏠 189 Hung Vuong, Tam Ky, Da Nang (2F)",
+            addr_b2: "🏠 Phuoc Thành, Que Son Trung, Da Nang",
+            addr_b3: "🏠 153 Dong Da, Hai Chau, Da Nang (6F)",
             footer_copyright: "© 2026 著作権は IUS に帰属します"
         }
     };
+
 
     const langSelect = document.querySelector(".lang-select");
 
@@ -654,7 +754,31 @@ header.scrolled .search-container {
         applyLanguage(lang);
     });
 
+
+    // 1. Hàm tải Footer-common
+    async function loadFooter() {
+        try {
+            const response = await fetch('footer-common.html');
+            const data = await response.text();
+            document.getElementById('footer-placeholder').innerHTML = data;
+        
+            // Sau khi tải xong footer, mới áp dụng ngôn ngữ để các ID trong footer được nhận diện
+            const savedLang = localStorage.getItem("selectedLanguage") || "vi";
+            applyLanguage(savedLang);
+        } catch (error) {
+            console.error("Lỗi tải footer:", error);
+
+	    // Nếu lỗi (do mở file từ ổ đĩa), vẫn chạy ngôn ngữ cho phần còn lại
+	    const savedLang = localStorage.getItem("selectedLanguage") || "vi";
+            applyLanguage(savedLang);
+        }
+    }
+
+
     function applyLanguage(lang) {
+
+	document.body.className = (lang === 'ja') ? 'lang-ja' : '';
+
 	localStorage.setItem("selectedLanguage", lang);// Nho ngon ngu 
 
         const t = translations[lang];
@@ -662,18 +786,42 @@ header.scrolled .search-container {
         
 	if (!t) return;
 
+	// --- LOGIC CHẠY CHỮ CHO HERO TITLE ---
+	const heroTitle = document.querySelector(".title-thin");
+        heroTitle.innerHTML = ""; // Xóa nội dung cũ
+
+    	// Lấy chuỗi văn bản (có chứa \n từ translations)
+    	const text = t.hero_title; 
+    
+    	// Tách từng ký tự để làm hiệu ứng chạy lần lượt
+    	text.split("").forEach((char, index) => {
+            const span = document.createElement("span");
+        
+            // Nếu là ký tự xuống dòng, tạo thẻ <br>
+            if (char === "\n") {
+            	heroTitle.appendChild(document.createElement("br"));
+            } else {
+            	span.innerText = char;
+            	span.className = "char-effect";
+            	// Delay để chữ hiện ra lần lượt (0.05 giây mỗi chữ)
+            	span.style.animationDelay = `${index * 0.05}s, ${index * 0.05 + 2}s`;
+            	heroTitle.appendChild(span);
+            }
+    	});
+
         // Header & Nav
 	if(document.getElementById("nav-home")) document.getElementById("nav-home").innerText = t.nav_home;
     	if(document.getElementById("nav-about")) document.getElementById("nav-about").innerText = t.nav_about;
     	if(document.getElementById("nav-services")) document.getElementById("nav-services").innerText = t.nav_services;
     	if(document.getElementById("nav-projects")) document.getElementById("nav-projects").innerText = t.nav_projects;
     	if(document.getElementById("nav-news")) document.getElementById("nav-news").innerText = t.nav_news;
+	if(document.getElementById("nav-sub-company")) document.getElementById("nav-sub-company").innerText = t.nav_sub_company;
     	if(document.getElementById("nav-jobs")) document.getElementById("nav-jobs").innerText = t.nav_jobs;
     	if(document.getElementById("nav-contact")) document.getElementById("nav-contact").innerText = t.nav_contact;
 
         // Hero
-        document.querySelector(".title-thin").innerText = t.hero_title;
-        document.querySelector(".caption-bottom").innerText = t.hero_caption;
+        //document.querySelector(".title-thin").innerText = t.hero_title;
+        //document.querySelector(".caption-bottom").innerText = t.hero_caption;
 	
 	//Search
 	const searchInput = document.getElementById("searchInput");
@@ -683,92 +831,121 @@ header.scrolled .search-container {
 
         // Main Content
         document.querySelector(".section-title").innerText = t.section_main_title;
-        
-        const subs = document.querySelectorAll(".sub-title-green");
-        subs[0].innerText = t.sub_classic;
-        subs[1].innerText = t.sub_modern;
-        subs[2].innerText = t.sub_morning;
-        subs[3].innerText = t.sub_noon;
-        subs[4].innerText = t.sub_peace;
-        subs[5].innerText = t.sub_light;
-        subs[6].innerText = t.sub_interior;
 
         // Footer
-        const footerHeaders = document.querySelectorAll(".footer-grid h4");
-        footerHeaders[0].innerText = t.footer_contact;
-        footerHeaders[1].innerText = t.footer_headquarters;
-        footerHeaders[2].innerText = t.footer_branch;
-        document.querySelector(".footer-bottom small").innerText = t.footer_copyright;
+	const setText = (id, text) => { const el = document.getElementById(id); if (el) el.innerText = text; };
+        setText("f-title-contact", t.footer_contact);
+        setText("f-title-hq", t.footer_headquarters);
+        setText("f-title-branch", t.footer_branch);
+        setText("f-addr-hq", t.addr_hq);
+        setText("f-addr-b1", t.addr_b1);
+        setText("f-addr-b2", t.addr_b2);
+        setText("f-addr-b3", t.addr_b3);
+        const fCopy = document.querySelector(".footer-bottom small");
+        if (fCopy) fCopy.innerText = t.footer_copyright;
+    } //kết thúc hàm applyLanguage
+
+	// Sự kiện khởi tạo
+    window.addEventListener("DOMContentLoaded", () => {
+    	loadFooter(); // Gọi hàm tải footer
+    });
+
 
 	// Notes
 	// ĐỔI TẤT CẢ CÁC DÒNG CHÚ THÍCH ẢNH
-	const captions = document.querySelectorAll(".lang-caption");
-	captions.forEach(cap => {
-	    cap.innerText = t.hero_caption; // Dùng chung nội dung "Nhà gỗ Nhật Bản..."
-	});
+	/*const captions = document.querySelectorAll(".lang-caption");
+	//captions.forEach(cap => {
+	    //cap.innerText = t.hero_caption; // Dùng chung nội dung "Nhà gỗ Nhật Bản..."
+	//});
 
 	// Cập nhật luôn cả dòng caption dưới ảnh Hero
-	const heroCap = document.querySelector(".caption-bottom");
-	if(heroCap) heroCap.innerText = t.hero_caption;
-}
+	//const heroCap = document.querySelector(".caption-bottom");
+	//if(heroCap) heroCap.innerText = t.hero_caption;*/
+//}
+
 
     // --- logic scroll ---
     const header = document.querySelector("header");
     const backToTopBtn = document.getElementById("backToTop");
 
     window.onscroll = function() {
-        if (window.scrollY > 300) {
-            header.classList.add("scrolled");
-        } else {
-            header.classList.remove("scrolled");
-        }
-
-        if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+	if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
             backToTopBtn.style.display = "block";
-        } else {
+    	} else {
             backToTopBtn.style.display = "none";
-        }
+    	}
     };
 
     backToTopBtn.onclick = function() {
         window.scrollTo({top: 0, behavior: 'smooth'});
     };
 
-const searchBtn = document.getElementById('searchBtn');
-const searchInput = document.getElementById('searchInput');
 
-searchBtn.addEventListener('click', function() {
-    const query = searchInput.value.trim();
+    // --- Logic Search ---
+    const searchBtn = document.getElementById('searchBtn');
+    const searchInput = document.getElementById('searchInput');
+
+    searchBtn.addEventListener('click', function() {
+    	const query = searchInput.value.trim();
     
-    if (query !== "") {
+    	if (query !== "") {
         // window.find(chuỗi, phân biệt hoa thường, tìm ngược, lặp lại)
         // Mỗi lần bấm, nó sẽ tự động nhảy đến vị trí tiếp theo
-        const found = window.find(query, false, false, true);
+            const found = window.find(query, false, false, true);
         
-        if (!found) {
-            alert("Không tìm thấy nội dung yêu cầu!");
-        }
-    } else {
-        // Nếu ô trống mà bấm kính lúp, thì tập trung chuột vào ô nhập
-        searchInput.focus();
-    }
-});
+            if (!found) {
+                alert("Không tìm thấy nội dung yêu cầu!");
+            }
+    	} else {
+            // Nếu ô trống mà bấm kính lúp, thì tập trung chuột vào ô nhập
+            searchInput.focus();
+    	}
+    });
 
-// Cho phép bấm Enter để tìm kiếm luôn cho tiện
-searchInput.addEventListener('keypress', function (e) {
-    if (e.key === 'Enter') {
-        searchBtn.click();
-    }
-});
+
+    // Cho phép bấm Enter để tìm kiếm luôn cho tiện
+    searchInput.addEventListener('keypress', function (e) {
+    	if (e.key === 'Enter') {
+            searchBtn.click();
+    	}
+    });
+
 
 // Khi vừa mở trang index.html lên
-window.addEventListener("DOMContentLoaded", () => {
+//window.addEventListener("DOMContentLoaded", () => {
     // Lấy ngôn ngữ đã lưu, nếu chưa có thì mặc định là 'vi'
-    const savedLang = localStorage.getItem("selectedLanguage") || "vi";
+//    const savedLang = localStorage.getItem("selectedLanguage") || "vi";
     
     // Gọi hàm áp dụng ngôn ngữ đó
-    applyLanguage(savedLang);
-});
+//    applyLanguage(savedLang);
+//});
+
+
+    // Xử lý nút hamberger cho điện thoại
+    const mobileMenu = document.getElementById('mobile-menu');
+    const navLinks = document.querySelector('.nav-links');
+
+    // Khi bấm vào nút 3 gạch
+    mobileMenu.addEventListener('click', () => {
+    	// Thêm hoặc xóa class 'active' để hiện/ẩn menu
+    	navLinks.classList.toggle('active');
+    
+    	// Đổi icon từ 3 gạch sang chữ X khi mở
+    	const icon = mobileMenu.querySelector('i');
+    	if (navLinks.classList.contains('active')) {
+            icon.classList.replace('fa-bars', 'fa-times');
+    	} else {
+            icon.classList.replace('fa-times', 'fa-bars');
+    	}
+    });
+
+
+    // Tự đóng menu khi bấm vào một link bất kỳ
+    document.querySelectorAll('.nav-links a').forEach(link => {
+    	link.addEventListener('click', () => {
+            navLinks.classList.remove('active');
+        });
+    });
 </script>
 </body>
 </html>
