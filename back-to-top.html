@@ -45,25 +45,21 @@
 </button>
 
 <script>
-    // --- logic scroll ---
-    const header = document.querySelector("header");
-    const backToTopBtn = document.getElementById("backToTop");
+    // Đoạn script này giờ chạy được nhờ hàm "ép" ở index.html
+    (function() {
+        const btn = document.getElementById("backToTop");
+        if(!btn) return;
 
-    window.onscroll = function() {
-        if (window.scrollY > 300) {
-            header.classList.add("scrolled");
-        } else {
-            header.classList.remove("scrolled");
-        }
+        window.addEventListener("scroll", function() {
+            if (window.pageYOffset > 300) {
+                btn.style.display = "block";
+            } else {
+                btn.style.display = "none";
+            }
+        });
 
-        if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-            backToTopBtn.style.display = "block";
-        } else {
-            backToTopBtn.style.display = "none";
-        }
-    };
-
-    backToTopBtn.onclick = function() {
-        window.scrollTo({top: 0, behavior: 'smooth'});
-    };
+        btn.onclick = function() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        };
+    })();
 </script>
