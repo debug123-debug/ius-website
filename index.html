@@ -363,47 +363,6 @@ header.scrolled .lang-select {
             box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
 
-/* Thiết lập nút Back to Top - Xóa sạch khung hình vuông/tròn cũ */
-#backToTop {
-    position: fixed;
-    bottom: 30px;
-    right: 60px;
-    
-    /* QUAN TRỌNG: Xóa mọi màu nền và khung */
-    background: none; 
-    border: none;
-    outline: none;
-    padding: 0;
-    
-    /* Chỉnh kích thước to lên */
-    width: 80px; 
-    height: auto; /* Để chiều cao tự động theo tỉ lệ ảnh */
-    
-    cursor: pointer;
-    display: none; /* Hiện ra khi cuộn */
-    z-index: 1001;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Hiệu ứng nảy nhẹ */
-}
-
-/* Đảm bảo ảnh bên trong chiếm hết độ rộng nút và không bị méo */
-#backToTop img {
-    width: 100%;
-    height: auto;
-    display: block;
-    /* Dòng mã quan trọng nhất: Triệt tiêu nền trắng */
-    mix-blend-mode: multiply; 
-    filter: contrast(1.2); /* Tăng độ tương phản để ảnh sắc nét hơn */
-    filter: drop-shadow(0 0 15px rgba(26, 75, 160, 0.8)) brightness(1.2);
-}
-
-/* Hiệu ứng khi rê chuột: Sáng lên và Bay lên */
-#backToTop:hover {
-    transform: translateY(-10px) scale(1.1); /* Bay lên và phóng to nhẹ */
-    filter: drop-shadow(0 0 15px rgba(26, 75, 160, 0.8)) brightness(1.2);
-}
-
-
-
 /* Container chứa cả input và kính lúp */
 .search-container {
     display: flex;
@@ -677,9 +636,7 @@ header.scrolled .menu-toggle {
 
     <div id="footer-placeholder"></div>
 
-    <button id="backToTop">
-        <img src="image/BACK-TO-TOP.png" alt="Back to Top" style="width: 150%; height: 150%; object-fit: contain;">
-    </button>
+    <div id="backtotop-placeholder"></div>
 
 <script>
     // Cấu hình đa ngôn ngữ
@@ -755,7 +712,7 @@ header.scrolled .menu-toggle {
     });
 
 
-    // 1. Hàm tải Footer-common
+    // Hàm tải Footer-common
     async function loadFooter() {
         try {
             const response = await fetch('footer-common.html');
@@ -771,6 +728,17 @@ header.scrolled .menu-toggle {
 	    // Nếu lỗi (do mở file từ ổ đĩa), vẫn chạy ngôn ngữ cho phần còn lại
 	    const savedLang = localStorage.getItem("selectedLanguage") || "vi";
             applyLanguage(savedLang);
+        }
+    }
+
+    // Hàm tải Back-to-top
+    async function loadBackToTop() {
+        try {
+            const response = await fetch('back-to-top.html');
+            const data = await response.text();
+            document.getElementById('backtotop-placeholder').innerHTML = data;
+        } catch (error) {
+            console.error("Lỗi tải Back To Top:", error);
         }
     }
 
@@ -819,6 +787,7 @@ header.scrolled .menu-toggle {
     	if(document.getElementById("nav-jobs")) document.getElementById("nav-jobs").innerText = t.nav_jobs;
     	if(document.getElementById("nav-contact")) document.getElementById("nav-contact").innerText = t.nav_contact;
 
+	// Backup
         // Hero
         //document.querySelector(".title-thin").innerText = t.hero_title;
         //document.querySelector(".caption-bottom").innerText = t.hero_caption;
@@ -845,13 +814,15 @@ header.scrolled .menu-toggle {
         if (fCopy) fCopy.innerText = t.footer_copyright;
     } //kết thúc hàm applyLanguage
 
+
 	// Sự kiện khởi tạo
     window.addEventListener("DOMContentLoaded", () => {
     	loadFooter(); // Gọi hàm tải footer
+	loadBackToTop(); // Gọi hàm tải Back-to-top
     });
 
 
-	// Notes
+    // Backup
 	// ĐỔI TẤT CẢ CÁC DÒNG CHÚ THÍCH ẢNH
 	/*const captions = document.querySelectorAll(".lang-caption");
 	//captions.forEach(cap => {
@@ -861,24 +832,7 @@ header.scrolled .menu-toggle {
 	// Cập nhật luôn cả dòng caption dưới ảnh Hero
 	//const heroCap = document.querySelector(".caption-bottom");
 	//if(heroCap) heroCap.innerText = t.hero_caption;*/
-//}
-
-
-    // --- logic scroll ---
-    const header = document.querySelector("header");
-    const backToTopBtn = document.getElementById("backToTop");
-
-    window.onscroll = function() {
-	if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-            backToTopBtn.style.display = "block";
-    	} else {
-            backToTopBtn.style.display = "none";
-    	}
-    };
-
-    backToTopBtn.onclick = function() {
-        window.scrollTo({top: 0, behavior: 'smooth'});
-    };
+	//}
 
 
     // --- Logic Search ---

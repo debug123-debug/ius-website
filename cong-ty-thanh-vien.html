@@ -335,45 +335,6 @@ header.scrolled .lang-select {
             box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
 
-/* Thiết lập nút Back to Top */
-#backToTop {
-    position: fixed;
-    bottom: 30px;
-    right: 60px;
-    
-    /* Xóa mọi màu nền và khung */
-    background: none; 
-    border: none;
-    outline: none;
-    padding: 0;
-    
-    /* Chỉnh kích thước to lên */
-    width: 80px; 
-    height: auto; /* Để chiều cao tự động theo tỉ lệ ảnh */
-    
-    cursor: pointer;
-    display: none; /* Hiện ra khi cuộn */
-    z-index: 1001;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Hiệu ứng nảy nhẹ */
-}
-
-/* Đảm bảo ảnh bên trong chiếm hết độ rộng nút và không bị méo */
-#backToTop img {
-    width: 100%;
-    height: auto;
-    display: block;
-    /* Dòng mã quan trọng nhất: Triệt tiêu nền trắng */
-    mix-blend-mode: multiply; 
-    filter: contrast(1.2); /* Tăng độ tương phản để ảnh sắc nét hơn */
-    filter: drop-shadow(0 0 15px rgba(26, 75, 160, 0.8)) brightness(1.2);
-}
-
-/* Hiệu ứng khi rê chuột: Sáng lên và Bay lên */
-#backToTop:hover {
-    transform: translateY(-10px) scale(1.1); /* Bay lên và phóng to nhẹ */
-    filter: drop-shadow(0 0 15px rgba(26, 75, 160, 0.8)) brightness(1.2);
-}
-
 /* Container chứa cả input và kính lúp */
 .search-container {
     display: flex;
@@ -515,10 +476,6 @@ header.scrolled .menu-toggle {
     </main>
 
     <div id="footer-placeholder"></div>
-
-    <button id="backToTop">
-        <img src="image/BACK-TO-TOP.png" alt="Back to Top" style="width: 150%; height: 150%; object-fit: contain;">
-    </button>
 
 <script>
     // Cấu hình đa ngôn ngữ
@@ -666,28 +623,7 @@ addr_hq: "📍 An Ha Dong, Quang Phu, Da Nang, Vietnam",
     });
 
 
-    // --- logic scroll ---
-    const header = document.querySelector("header");
-    const backToTopBtn = document.getElementById("backToTop");
-
-    window.onscroll = function() {
-        if (window.scrollY > 300) {
-            header.classList.add("scrolled");
-        } else {
-            header.classList.remove("scrolled");
-        }
-
-        if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-            backToTopBtn.style.display = "block";
-        } else {
-            backToTopBtn.style.display = "none";
-        }
-    };
-
-    backToTopBtn.onclick = function() {
-        window.scrollTo({top: 0, behavior: 'smooth'});
-    };
-
+    // --- logic search ---
 const searchBtn = document.getElementById('searchBtn');
 const searchInput = document.getElementById('searchInput');
 
